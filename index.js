@@ -6,12 +6,14 @@ app.use(cors())
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'http://localhost'
+    origin: 'https://ajitaro-webrtc-react.vercel.app/'
   }
 })
 
-const host = 'localhost' //'http://192.168.1.103'
+const host = 'webrtc-node-lime.vercel.app' //'http://192.168.1.103'
 const port = 3000
+
+// https://webrtc-node-lime.vercel.app
 
 io.on('connection', socket => {
   console.log('Connected! Socket ID: ', socket.id)
@@ -49,6 +51,5 @@ app.get('/', (req, res) => {
 })
 
 server.listen(port, host, () => {
-  console.log(`Server is running at http://${host}:${port}`);
-
+  console.log(`Server is running at http://${host}:${port}`)
 })
