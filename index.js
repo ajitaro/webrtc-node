@@ -11,14 +11,20 @@ const io = require('socket.io')(server, {
 })
 
 const host = 'webrtc-node-lime.vercel.app' //'http://192.168.1.103'
-const port = 3000
+const PORT = process.env.PORT || 3000
 
 // https://webrtc-node-lime.vercel.app
+
+app.get('/', (req, res) => {
+  res.write(`<h1>Socket IO Start on Port : ${PORT}</h1>`)
+  res.end()
+})
 
 io.on('connection', socket => {
   console.log('Connected! Socket ID: ', socket.id)
 
   socket.on('message', (message) => {
+    io.emit('message', message)
     console.log('Received message: ', message)
     socket.broadcast.emit('message', message)
   })
@@ -46,10 +52,6 @@ function error (err, req, res, next) {
 
 app.use(error)
 
-app.get('/', (req, res) => {
-  res.send('Hey this is my API running 🥳')
-})
-
-server.listen(port, host, () => {
-  console.log(`Server is running at http://${host}:${port}`)
+server.listen(PORT, () => {
+  console.log(`Server is running at ${PORT}`)
 })
