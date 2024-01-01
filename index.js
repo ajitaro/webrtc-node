@@ -44,6 +44,10 @@ function error (err, req, res, next) {
 
 app.use(error)
 
+app.get('/', (req, res) => {
+  res.send('Hey this is my API running 🥳')
+})
+
 server.listen(port, host, () => {
   console.log(`Server is running at http://${host}:${port}`);
 
